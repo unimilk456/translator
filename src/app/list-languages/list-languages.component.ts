@@ -11,6 +11,8 @@ import { FetchLanguagesListService } from './../fetch-languages-list.service';
 export class ListLanguagesComponent implements OnInit {
   // listLanguages: Language[];
   listLanguages: Language[];
+  public show: boolean = false;
+  fromLanguage: string = 'Language';
 
   // listLanguages = ['English', 'Russian', 'German'];
 
@@ -60,5 +62,14 @@ export class ListLanguagesComponent implements OnInit {
   }
   getlistLanguages(): string[] {
     return this.listLanguages.map((it) => it['name']);
+  }
+
+  toggle(): void {
+    this.show = !this.show;
+  }
+
+  clickLanguage($event): void {
+    this.fromLanguage = $event.target.innerHTML;
+    this.toggle();
   }
 }
