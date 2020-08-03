@@ -9,11 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class TranslationService {
-  constructor(
-    private http: HttpClient,
-    private httpParams: HttpParams,
-    private httpHeaders: HttpHeaders,
-  ) {}
+  constructor(private http: HttpClient, private httpParams: HttpParams) {}
 
   sentForTranslation(): Observable<string> {
     const KEY = environment.translatorTextSubscritionKey;
@@ -25,18 +21,19 @@ export class TranslationService {
       .set('to', 'ru')
       .set('from', 'de');
 
-    this.httpHeaders.append('Content-Type', 'application/json');
-    this.httpHeaders.append('Ocp-Apim-Subscription-Key', KEY);
-    this.httpHeaders.append('Ocp-Apim-Subscription-Region', REGION);
-
+    const HTTP_HEADERS = {
+      'Content-Type': 'application/json',
+      'Ocp-Apim-Subscription-Key': KEY,
+      'Ocp-Apim-Subscription-Region': REGION,
+    };
 
     return this.http.post<any>(
       END_POINT,
       { text: 'hi' },
       {
-        headers: this.httpHeaders,
+        headers: HTTP_HEADERS,
         // params: this.httpParams,
-        // observe: 'json',
+        observe: 'body',
         responseType: 'json',
       }
     );

@@ -7,7 +7,7 @@ import { TextAreaComponent } from './text-area/text-area.component';
 import { ListLanguagesComponent } from './list-languages/list-languages.component';
 import { FetchLanguagesListService } from './fetch-languages-list.service';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpParams} from '@angular/common/http';
+import { HttpParams, HttpHeaders} from '@angular/common/http';
 import { TranslationService } from './translation.service';
 
 @NgModule({

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Language } from './language';
 import { map, filter, switchMap } from 'rxjs/operators';
+import { environment } from './../environments/environment';
 
 const axios = require('axios');
 
@@ -11,39 +12,32 @@ const axios = require('axios');
   providedIn: 'root',
 })
 export class FetchLanguagesListService {
-
-  constructor(private http: HttpClient, private httpParams: HttpParams) {}
+  constructor(
+    private http: HttpClient,
+    private httpParams: HttpParams,
+  ) {}
 
   fetchLanguagesList(): Observable<Language[]> {
-    
+    const END_POINT = `${environment.translatorTextEndpoint}/languages`;
+
     this.httpParams = this.httpParams.set('api-version', '3.0');
+
+    const HTTP_HEADERS = { 'content-type': 'application/json' };
+
     return this.http
-      .get<Language[]>(
-        'https://api.cognitive.microsofttranslator.com/languages',
-        {
-          headers: {
-            'content-type': 'application/json',
-            // 'x-rapidapi-host': 'microsoft-translator-text.p.rapidapi.com',
-            // 'x-rapidapi-key':
-            // '674985a3b1msh7cebb6082594bd6p1bb7efjsne7eeb92689e9',
-            // 'Postman-Token': 'e51c955e-8f7b-49cc-a1f6-b0399b971e4e',
-            // host: 'api.cognitive.microsofttranslator.com',
-            // 'accept-encoding': 'gzip, deflate, br',
-            // accept: '*/*',
-            // 'cache-control': 'no-cache',
-          },
-          params: this.httpParams,
-          observe: 'body',
-          responseType: 'json',
-        }
-      )
+      .get<Language[]>(END_POINT, {
+        headers: HTTP_HEADERS,
+        params: this.httpParams,
+        observe: 'body',
+        responseType: 'json',
+      })
       .pipe(
         map((data) => {
           // console.log(data);
           let langList = data['translation'];
           return Object.values(langList).map((rec) => {
             // console.log(f[rec.nativeName]);
-            return { name: rec["name"], nativeName: rec["nativeName"] };
+            return { name: rec['name'], nativeName: rec['nativeName'] };
           });
         })
       );
