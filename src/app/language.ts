@@ -1,5 +1,5 @@
 export interface Language {
-  name: string,
-  nativeName: string
+  name: string;
+  nativeName: string;
+  code: string;
 }
-

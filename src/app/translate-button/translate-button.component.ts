@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslationService } from './../translation.service'
+import { TranslationService } from './../translation.service';
 
 @Component({
   selector: 'translate-button',
   templateUrl: './translate-button.component.html',
-  styleUrls: ['./translate-button.component.scss'],
 })
 export class TranslateButtonComponent implements OnInit {
   title = 'Translate!!';
@@ -23,7 +22,7 @@ export class TranslateButtonComponent implements OnInit {
   }
 
   onClick() {
-    this.translationService.sentForTranslation('hi', 'en', 'ru');
+    this.translationService.translate('hi', 'en', 'ru');
     //  alert ('ddd');
   }
 }

@@ -4,57 +4,39 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from './../environments/environment';
 // import { Translation } from './translation';
-import { map } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TranslationService {
-  constructor(private http: HttpClient, private textArea: TextAreaComponent) {}
+  constructor(private httpClient: HttpClient) {}
 
-  sentForTranslation(textToTranslation, fromLanguage, toLanguage) {
-
-    console.log(textToTranslation, fromLanguage, toLanguage);
+  public translate(
+    sourceText,
+    sourceLanguage,
+    targetLanguage
+  ): Observable<any> {
     const KEY = environment.translatorTextSubscritionKey;
     const END_POINT = `${environment.translatorTextEndpoint}/translate`;
     const REGION = environment.subscriptionRegion;
 
-    const HTTP_PARAMS = new HttpParams()
-      .set('api-version', '3.0')
-      .set('to', toLanguage)
-      .set('from', fromLanguage);
-
-    const HTTP_HEADERS = {
-      'Content-Type': 'application/json',
-      'Ocp-Apim-Subscription-Key': KEY,
-      'Ocp-Apim-Subscription-Region': REGION,
-    };
-    // alert('enterrrrrrr')
-    return this.http
-      .post(END_POINT, [{ text: textToTranslation }], {
-        headers: HTTP_HEADERS,
-        params: HTTP_PARAMS,
-        observe: 'body',
-        responseType: 'json',
+    return this.httpClient
+      .post<any>(END_POINT, [{ text: sourceText }], {
+        headers: {
+          'Ocp-Apim-Subscription-Key': KEY,
+          'Ocp-Apim-Subscription-Region': REGION,
+        },
+        params: {
+          'api-version': '3.0',
+          from: sourceLanguage,
+          to: targetLanguage,
+        },
       })
       .pipe(
-        map((data) => {
-          //  console.log({translation: data[0]['translations'][0]['text'],
-          //  to: data[0]['translations'][0]['to']});
-          // let langList = data['translation'];
-          //  console.log({ text: data });
-          return {
-            textToTranslation,
-            fromLanguage,
-            translation: data[0]['translations'][0]['text'],
-            toLanguage: data[0]['translations'][0]['to'],
-          };
+        map((response) => {
+          return response[0]['translations'][0].text;
         })
-      )
-      .subscribe((response) => {
-        this.textArea.setTranslatedText(response['translation']);
-        console.log('POST call in error', response);
-        error: (error) => console.error('There was an error!', error);
-      });
+      );
   }
 }

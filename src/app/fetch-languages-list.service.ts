@@ -1,43 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Language } from './language';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { environment } from './../environments/environment';
 
-const axios = require('axios');
+// const axios = require('axios');
 
 @Injectable({
   providedIn: 'root',
 })
 export class FetchLanguagesListService {
-  constructor(
-    private http: HttpClient,
-    private httpParams: HttpParams,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   fetchLanguagesList(): Observable<Language[]> {
     const END_POINT = `${environment.translatorTextEndpoint}/languages`;
 
-    this.httpParams = this.httpParams.set('api-version', '3.0');
-    const HTTP_HEADER = { 'content-type': 'application/json' };
-
     return this.http
-      .get<Language[]>(END_POINT, {
-        headers: {'content-type': 'application/json'},
-        params: this.httpParams,
-        observe: 'body',
-        responseType: 'json',
+      .get<{ translation: { [key: string]: Language } }>(END_POINT, {
+        params: { 'api-version': '3.0' },
       })
       .pipe(
         map((data) => {
-          // console.log(data);
-          let langList = data['translation'];
-          return Object.values(langList).map((rec) => {
-            // console.log(f[rec.nativeName]);
-            return { name: rec['name'], nativeName: rec['nativeName'] };
+          return Object.keys(data.translation).map((languageCode) => {
+            const language = data.translation[languageCode];
+            return {
+              name: language.name,
+              nativeName: language.nativeName,
+              code: languageCode,
+            };
           });
+
+          // console.log(data);
+          // let langList = data['translation'];
+          // return Object.values(langList).map((rec) => {
+          //   // console.log(f[rec.nativeName]);
+          //   return { name: rec['name'], nativeName: rec['nativeName'] };
+          // });
         })
       );
     // .toPromise()

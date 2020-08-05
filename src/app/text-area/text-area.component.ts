@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-text-area',
   templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss'],
 })
 export class TextAreaComponent implements OnInit {
   textToTranslation: string;
@@ -18,12 +17,11 @@ export class TextAreaComponent implements OnInit {
   getTranslatedText() {}
 
   setTranslatedText(translation: string) {
-
-    this.translation = translation;
-    console.log(this.translation);
+    // this.translation = translation;
+    // console.log(this.translation);
   }
-  onChange(event){
-    alert("!!!")
-    this.textToTranslation = event.target.InnerHTML
+  onChange(event) {
+    // alert("!!!")
+    // this.textToTranslation = event.target.InnerHTML
   }
 }
