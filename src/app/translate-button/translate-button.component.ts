@@ -4,26 +4,26 @@ import { TranslationService } from './../translation.service'
 @Component({
   selector: 'translate-button',
   templateUrl: './translate-button.component.html',
-  styleUrls: ['./translate-button.component.scss']
+  styleUrls: ['./translate-button.component.scss'],
 })
 export class TranslateButtonComponent implements OnInit {
-  title = "Translate!!";
+  title = 'Translate!!';
   isClicked: boolean;
 
-  constructor() { }
+  constructor(private translationService: TranslationService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getTitle(): string {
     return this.title;
   }
 
   getIsClicked() {
-    return this.isClicked
+    return this.isClicked;
   }
 
   onClick() {
-
+    this.translationService.sentForTranslation('hi', 'en', 'ru');
+    //  alert ('ddd');
   }
 }

@@ -12,7 +12,8 @@ export class ListLanguagesComponent implements OnInit {
   // listLanguages: Language[];
   listLanguages: Language[];
   public show: boolean = false;
-  fromLanguage: string = 'Language';
+  currentLanguage: string = 'Language';
+
 
   // listLanguages = ['English', 'Russian', 'German'];
 
@@ -47,8 +48,9 @@ export class ListLanguagesComponent implements OnInit {
       //     return  [...acc, rec['nativeName']];
       //   },  []
       // );
-      console.log(listLanguages);
+      // console.log(listLanguages);
       this.listLanguages = listLanguages;
+      error: (error) => console.error('There was an error!', error);
 
       // this.listLanguages = d
       // this.listLanguages =
@@ -69,7 +71,11 @@ export class ListLanguagesComponent implements OnInit {
   }
 
   clickLanguage($event): void {
-    this.fromLanguage = $event.target.innerHTML;
+    this.currentLanguage = $event.target.innerHTML;
     this.toggle();
+  }
+
+  getCurrentLanguage() {
+    return this.currentLanguage;
   }
 }

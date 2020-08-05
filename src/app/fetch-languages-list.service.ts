@@ -21,12 +21,11 @@ export class FetchLanguagesListService {
     const END_POINT = `${environment.translatorTextEndpoint}/languages`;
 
     this.httpParams = this.httpParams.set('api-version', '3.0');
-
-    const HTTP_HEADERS = { 'content-type': 'application/json' };
+    const HTTP_HEADER = { 'content-type': 'application/json' };
 
     return this.http
       .get<Language[]>(END_POINT, {
-        headers: HTTP_HEADERS,
+        headers: {'content-type': 'application/json'},
         params: this.httpParams,
         observe: 'body',
         responseType: 'json',

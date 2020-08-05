@@ -9,6 +9,9 @@ import { FetchLanguagesListService } from './fetch-languages-list.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpParams, HttpHeaders} from '@angular/common/http';
 import { TranslationService } from './translation.service';
+import { FormsModule } from '@angular/forms';
+import { TranslationComponent } from './translation/translation.component';
+
 
 @NgModule({
   declarations: [
@@ -16,12 +19,14 @@ import { TranslationService } from './translation.service';
     TranslateButtonComponent,
     TextAreaComponent,
     ListLanguagesComponent,
+    TranslationComponent,
   ],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, FormsModule],
   providers: [
     FetchLanguagesListService,
     HttpParams,
     TranslationService,
+    TextAreaComponent,
   ],
   bootstrap: [AppComponent],
 })

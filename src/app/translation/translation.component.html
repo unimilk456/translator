@@ -1,0 +1,20 @@
+<div>
+  <app-list-languages id="fromLanguage"></app-list-languages>
+  <textarea
+    class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    placeholder="Input text here"
+    (change)="onChangeSourceText($event)"
+  >he</textarea>
+</div>
+<div>
+  <app-list-languages id="toLanguage"></app-list-languages>
+  <textarea
+    class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    placeholder="Input text here"
+  >{{sourceText}}</textarea>
+</div>
+<button
+  type="button"
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  (click)="onClick()"
+></button>
