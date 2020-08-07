@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -10,13 +10,17 @@ import { TranslationService } from './../translation.service';
   templateUrl: './translation.component.html',
 })
 export class TranslationComponent implements OnDestroy {
+
   public readonly form = this.fb.group({
-    sourceLanguage: [''],
-    sourceText: [''],
+    sourceLanguage: ['', [Validators.required]],
+    sourceText: ['', [Validators.required]],
     targetLanguage: [''],
     targetText: [''],
   });
+  // ngOnInit() {
 
+  // this.onChanges();
+  // }
   private readonly componentDestroyed$ = new Subject<void>();
 
   constructor(
@@ -39,4 +43,23 @@ export class TranslationComponent implements OnDestroy {
         this.form.controls.targetText.setValue(response);
       });
   }
+
+  get _sourceText() {
+    return this.form.get('sourceText');
+  }
+  get _sourceLanguage() {
+    return this.form.get('sourceLanguage');
+  }
+
+  // onChanges(): void {
+  //   this.form.valueChanges.subscribe(val => {
+  //     this.formattedMessage =
+  //     `Hello,
+
+  //     My name is ${val.name} and my email is ${val.email}.
+
+  //     I would like to tell you that ${val.message}.`;
+  //   });
+  // }
 }
+
