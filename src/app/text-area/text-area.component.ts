@@ -5,23 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './text-area.component.html',
 })
 export class TextAreaComponent implements OnInit {
-  textToTranslation: string;
   translation: string;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  getTextToTranslation() {}
-
-  getTranslatedText() {}
-
-  setTranslatedText(translation: string) {
-    // this.translation = translation;
-    // console.log(this.translation);
-  }
   onChange(event) {
-    // alert("!!!")
-    // this.textToTranslation = event.target.InnerHTML
   }
 }

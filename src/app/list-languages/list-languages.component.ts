@@ -50,6 +50,7 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
     this.loadLanguages();
   }
 
+
   public ngOnDestroy(): void {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();

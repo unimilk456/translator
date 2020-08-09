@@ -1,16 +1,16 @@
 <form [formGroup]="form" (ngSubmit)="translate()">
 <div>
   <app-list-languages formControlName="sourceLanguage"></app-list-languages>
-  <div *ngIf="_sourceLanguage.invalid">
-      <span *ngIf="_sourceLanguage.errors?.required">*Choose language</span>
+  <div *ngIf="form.controls.sourceLanguage.invalid">
+      <span *ngIf="form.controls.sourceLanguage.errors?.required">*Choose language</span>
   </div>
   <textarea class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Input text here"
             formControlName="sourceText"
             >
   </textarea>
-  <div *ngIf="_sourceText.invalid">
-      <span *ngIf="_sourceText.errors?.required">*Field is required</span>
+  <div *ngIf="form.controls.sourceText.invalid">
+      <span *ngIf="form.controls.sourceText.errors?.required">*Field is required</span>
   </div>
 </div>
 
@@ -23,5 +23,5 @@
 </div>
 
 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
-  Translate
+  Translate IT
 </button>

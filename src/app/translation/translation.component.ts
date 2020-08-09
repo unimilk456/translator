@@ -1,3 +1,4 @@
+import { Language } from './../language';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -10,17 +11,16 @@ import { TranslationService } from './../translation.service';
   templateUrl: './translation.component.html',
 })
 export class TranslationComponent implements OnDestroy {
-
   public readonly form = this.fb.group({
-    sourceLanguage: ['', [Validators.required]],
-    sourceText: ['', [Validators.required]],
-    targetLanguage: [''],
+    sourceLanguage: ['en', [Validators.required]],
+    sourceText: ['he', [Validators.required]],
+    targetLanguage: ['ru'],
     targetText: [''],
   });
-  // ngOnInit() {
-
-  // this.onChanges();
-  // }
+  ngOnInit() {
+    localStorage.clear();
+    this.onChanges();
+  }
   private readonly componentDestroyed$ = new Subject<void>();
 
   constructor(
@@ -44,22 +44,10 @@ export class TranslationComponent implements OnDestroy {
       });
   }
 
-  get _sourceText() {
-    return this.form.get('sourceText');
+  onChanges(): void {
+    this.form.get('targetText').valueChanges.subscribe((val) => {
+      let it = localStorage.getItem('translatorApp');
+      localStorage.setItem('translatorApp', it === null ? val : `${it},${val}`);
+    });
   }
-  get _sourceLanguage() {
-    return this.form.get('sourceLanguage');
-  }
-
-  // onChanges(): void {
-  //   this.form.valueChanges.subscribe(val => {
-  //     this.formattedMessage =
-  //     `Hello,
-
-  //     My name is ${val.name} and my email is ${val.email}.
-
-  //     I would like to tell you that ${val.message}.`;
-  //   });
-  // }
 }
-
