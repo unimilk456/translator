@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Language } from './../language';
-import { TranslateButtonComponent } from '../translate-button/translate-button.component';
 import { FetchLanguagesListService } from './../fetch-languages-list.service';
 
 @Component({
