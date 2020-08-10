@@ -14,6 +14,7 @@ import { TranslationComponent } from './translation/translation.component';
 import { TranslationListComponent } from './translation-list/translation-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TranslatedTextComponent } from './translated-text/translated-text.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TranslatedTextComponent } from './translated-text/translated-text.compo
     TranslationComponent,
     TranslationListComponent,
     TranslatedTextComponent,
+    PageNotFoundComponent,
   ],
   imports: [BrowserModule, CommonModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule],
   providers: [FetchLanguagesListService, TranslationService],

@@ -1,3 +1,4 @@
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TranslationListComponent } from './translation-list/translation-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,6 +9,7 @@ const routes: Routes = [
   { path: 'translationlist', component: TranslationListComponent },
   { path: 'translation', component: TranslationComponent },
   { path: '', redirectTo: '/translation', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 
