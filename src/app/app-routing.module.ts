@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslationComponent } from './translation/translation.component';
+import { TranslatedTextComponent } from './translated-text/translated-text.component';
 
 const routes: Routes = [
   { path: 'translationlist', component: TranslationListComponent },
-  { path: 'translation', component: TranslationComponent },
-  { path: '', redirectTo: '/translation', pathMatch: 'full' },
+  { path: 'addTranslation', component: TranslationComponent },
+  { path: 'text/:id', component: TranslatedTextComponent },
+  { path: '', redirectTo: '/addTranslation', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 

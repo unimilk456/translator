@@ -18,6 +18,12 @@ import { FetchLanguagesListService } from './../fetch-languages-list.service';
   ],
 })
 export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
+  private readonly componentDestroyed$ = new Subject<void>();
+
+  constructor(private listService: FetchLanguagesListService) {
+    this.loadLanguages();
+  }
+  
   public languages: Language[] = [];
   public displayDropdown: boolean = false;
 
@@ -40,12 +46,6 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
     this.onChange = () => {
       fn(this.innerValue);
     };
-  }
-
-  private readonly componentDestroyed$ = new Subject<void>();
-
-  constructor(private listService: FetchLanguagesListService) {
-    this.loadLanguages();
   }
 
   public ngOnDestroy(): void {

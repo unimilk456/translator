@@ -1,8 +1,10 @@
+import { LocalStorageService } from './../local-storage.service';
 import { Language } from './../language';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { TranslationService } from './../translation.service';
 
@@ -17,16 +19,18 @@ export class TranslationComponent implements OnDestroy {
     targetLanguage: ['ru'],
     targetText: [''],
   });
-  ngOnInit() {
-    // localStorage.clear();
-    this.onChanges();
-  }
+
   private readonly componentDestroyed$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private localStorage: LocalStorageService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+
+  indexTargetText: number;
 
   public ngOnDestroy(): void {
     this.componentDestroyed$.next();
@@ -40,14 +44,13 @@ export class TranslationComponent implements OnDestroy {
       .translate(sourceText, sourceLanguage, targetLanguage)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((response) => {
-        this.form.controls.targetText.setValue(response);
+        this.SaveAndNavigate(response);
       });
   }
 
-  onChanges(): void {
-    this.form.get('targetText').valueChanges.subscribe((val) => {
-      let it = localStorage.getItem('translatorApp');
-      localStorage.setItem('translatorApp', it === null ? val : `${it},${val}`);
-    });
+  SaveAndNavigate(text) {
+    this.localStorage.saveTranslatedText(text);
+    this.indexTargetText = this.localStorage.getItem().split(',').length-1;
+    this.router.navigate(['/text', this.indexTargetText]);
   }
 }

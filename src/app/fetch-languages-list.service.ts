@@ -31,30 +31,7 @@ export class FetchLanguagesListService {
               code: languageCode,
             };
           });
-
-          // console.log(data);
-          // let langList = data['translation'];
-          // return Object.values(langList).map((rec) => {
-          //   // console.log(f[rec.nativeName]);
-          //   return { name: rec['name'], nativeName: rec['nativeName'] };
-          // });
         })
       );
-    // .toPromise()
-    // .then((data: any) => {
-    // data.data.languages.map((it) => console.log(it));
-    // });
-    // const result = await axios({
-    //   method: 'GET',
-    //   url:
-    //     'https://google-translate1.p.rapidapi.com/language/translate/v2/languages',
-    //   headers: {
-    //     'content-type': 'application/octet-stream',
-    //     'x-rapidapi-host': 'google-translate1.p.rapidapi.com',
-    //     'x-rapidapi-key': '674985a3b1msh7cebb6082594bd6p1bb7efjsne7eeb92689e9',
-    //     'accept-encoding': 'application/gzip',
-    //     useQueryString: true,
-    //   },
-    // }).data.languages;
   }
 }

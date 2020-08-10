@@ -1,6 +1,6 @@
 export interface Translation {
-  textToTranslation: string;
-  fromLanguage: string;
-  toLanguage: string;
-  translation: string;
+  SourceText: string;
+  sourceLanguage: string;
+  targetLanguage: string;
+  targetText: string;
 }

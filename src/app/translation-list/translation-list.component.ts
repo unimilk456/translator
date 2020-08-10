@@ -1,22 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-translation-list',
   templateUrl: './translation-list.component.html',
-  styleUrls: ['./translation-list.component.scss']
+  styleUrls: ['./translation-list.component.scss'],
 })
 export class TranslationListComponent implements OnInit {
   translationList: string[];
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
-
     this.translationList = this.getTranslationList();
     console.log(localStorage.getItem('translatorApp').split(','));
   }
   getTranslationList(): string[] {
     return localStorage.getItem('translatorApp').split(',');
+  }
+  // todo переделать clearStorage
+  clearStorage(): void {
+    localStorage.clear();
+    window.location.reload();
   }
 }
