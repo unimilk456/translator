@@ -21,7 +21,7 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
   public languages: Language[] = [];
   public displayDropdown: boolean = false;
 
-  public innerValue: Language['code'] = 'en' ;
+  public innerValue: Language['code'] = 'en';
   public languageTitle: Language['name'];
 
   public onChange: () => void;
@@ -39,7 +39,6 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
   public registerOnChange(fn: (_: any) => void): void {
     this.onChange = () => {
       fn(this.innerValue);
-      // fn(this.)
     };
   }
 
@@ -48,7 +47,6 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
   constructor(private listService: FetchLanguagesListService) {
     this.loadLanguages();
   }
-
 
   public ngOnDestroy(): void {
     this.componentDestroyed$.next();
@@ -69,6 +67,14 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((languages) => {
         this.languages = languages;
+        if (this.innerValue) {
+          this.setLanguageTitle();
+        }
       });
+  }
+  private setLanguageTitle(): void {
+    this.languageTitle = this.languages.find(
+      (language) => language.code === this.innerValue
+    ).name;
   }
 }

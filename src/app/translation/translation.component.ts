@@ -18,7 +18,7 @@ export class TranslationComponent implements OnDestroy {
     targetText: [''],
   });
   ngOnInit() {
-    localStorage.clear();
+    // localStorage.clear();
     this.onChanges();
   }
   private readonly componentDestroyed$ = new Subject<void>();
