@@ -23,7 +23,7 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
   constructor(private listService: FetchLanguagesListService) {
     this.loadLanguages();
   }
-  
+
   public languages: Language[] = [];
   public displayDropdown: boolean = false;
 
@@ -66,7 +66,20 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
       .fetchLanguagesList()
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((languages) => {
-        this.languages = languages;
+        const compare = (a, b) => {
+          // Use toUpperCase() to ignore character casing
+          const nameA = a.name.toUpperCase();
+          const nameB = b.name.toUpperCase();
+
+          let comparison = 0;
+          if (nameA > nameB) {
+            comparison = 1;
+          } else if (nameA < nameB) {
+            comparison = -1;
+          }
+          return comparison;
+        };
+        this.languages = languages.sort(compare);
         if (this.innerValue) {
           this.setLanguageTitle();
         }
