@@ -15,7 +15,7 @@ import { TranslationService } from './../translation.service';
 export class TranslationComponent implements OnDestroy {
   public readonly form = this.fb.group({
     sourceLanguage: ['en', [Validators.required]],
-    sourceText: ['he', [Validators.required]],
+    sourceText: ['', [Validators.required]],
     targetLanguage: ['ru'],
     targetText: [''],
   });
