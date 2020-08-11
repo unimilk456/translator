@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from './../../environments/environment';
 
 import { TranslationService } from './../translation.service';
 
@@ -44,13 +45,16 @@ export class TranslationComponent implements OnDestroy {
       .translate(sourceText, sourceLanguage, targetLanguage)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((response) => {
+        console.log(response);
         this.SaveAndNavigate(response);
       });
   }
 
   SaveAndNavigate(text) {
     this.localStorage.saveTranslatedText(text);
-    this.indexTargetText = this.localStorage.getItem().split(',').length-1;
+    this.indexTargetText =
+      this.localStorage.getItem().split(environment.separatorForLocalStorage)
+        .length - 1;
     this.router.navigate(['/text', this.indexTargetText]);
   }
 }

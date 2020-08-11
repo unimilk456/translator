@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from './../../environments/environment';
 
 
 
@@ -14,10 +15,10 @@ export class TranslationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.translationList = this.getTranslationList();
-    console.log(localStorage.getItem('translatorApp').split(','));
+    console.log(localStorage.getItem('translatorApp').split(environment.separatorForLocalStorage));
   }
   getTranslationList(): string[] {
-    return localStorage.getItem('translatorApp').split(',');
+    return localStorage.getItem('translatorApp').split(environment.separatorForLocalStorage);
   }
   // todo переделать clearStorage
   clearStorage(): void {

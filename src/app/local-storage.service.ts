@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ export class LocalStorageService {
   KEY_LOCAL_STORAGE = 'translatorApp';
 
   getTranslatedTextByIndex(index: string) {
-    return localStorage.getItem(this.KEY_LOCAL_STORAGE).split(',')[+index];
+    return localStorage.getItem(this.KEY_LOCAL_STORAGE).split(environment.separatorForLocalStorage)[+index];
   }
 
   getItem(key: string = this.KEY_LOCAL_STORAGE) {
@@ -22,7 +23,9 @@ export class LocalStorageService {
     let translations = this.getItem();
     this.setItem(
       this.KEY_LOCAL_STORAGE,
-      translations === null ? text : `${translations},${text}`
+      translations === null
+        ? text
+        : `${translations}${environment.separatorForLocalStorage}${text}`
     );
   }
 }

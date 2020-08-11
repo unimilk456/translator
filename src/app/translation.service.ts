@@ -34,6 +34,7 @@ export class TranslationService {
       })
       .pipe(
         map((response) => {
+          console.log(response);
           return response[0]['translations'][0].text;
         })
       );

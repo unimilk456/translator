@@ -1,9 +1,13 @@
-<h3>Translation List55</h3>
-<div >
-  <a *ngFor="let item of translationList; let i=index">
-    <div >
-      <a [routerLink]="['/text', i]">{{item}}</a>
+<h3 class="p-4 text-gray-800 text-2xl">История переводов</h3>
+<div>
+  <a *ngFor="let item of translationList; let i = index">
+    <div>
+      <div class="text-gray-800 border border-gray-300 px-2 m-4 rounded">
+        <a [routerLink]="['/text', i]">{{ item }}</a>
+      </div>
     </div>
   </a>
 </div>
-<button (click)="clearStorage()">Clear</button>
+<div class="flex justify-center pb-4">
+  <button class="bg-gray-600 text-white px-4 py-2 rounded mt-2" (click)="clearStorage()">Очистить</button>
+</div>
