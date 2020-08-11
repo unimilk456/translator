@@ -66,28 +66,29 @@ export class ListLanguagesComponent implements OnDestroy, ControlValueAccessor {
       .fetchLanguagesList()
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((languages) => {
-        const compare = (a, b) => {
-          // Use toUpperCase() to ignore character casing
-          const nameA = a.name.toUpperCase();
-          const nameB = b.name.toUpperCase();
-
-          let comparison = 0;
-          if (nameA > nameB) {
-            comparison = 1;
-          } else if (nameA < nameB) {
-            comparison = -1;
-          }
-          return comparison;
-        };
-        this.languages = languages.sort(compare);
+        this.languages = languages.sort(this.compare);
         if (this.innerValue) {
           this.setLanguageTitle();
         }
       });
   }
+  
   private setLanguageTitle(): void {
     this.languageTitle = this.languages.find(
       (language) => language.code === this.innerValue
     ).name;
+  }
+
+  private compare(a, b): number {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+
+    let comparison = 0;
+    if (nameA > nameB) {
+      comparison = 1;
+    } else if (nameA < nameB) {
+      comparison = -1;
+    }
+    return comparison;
   }
 }
