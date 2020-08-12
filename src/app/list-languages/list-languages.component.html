@@ -44,14 +44,15 @@
         </svg>
       </button>
     </div>
-
-    <div class="grid grid-flow-row grid-cols-3 grid-rows-3 gap-0">
-      <div
-        class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-        (click)="setLanguage(language.code, language.name)"
-        *ngFor="let language of languages"
-      >
-        {{ language.name }}
+    <div class="text-gray-800 border border-gray-300 m-2 rounded">
+      <div class="grid grid-flow-row grid-cols-3 grid-rows-3 gap-0">
+        <div
+          class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+          (click)="setLanguage(language.code, language.name)"
+          *ngFor="let language of languages"
+        >
+          {{ language.name }}
+        </div>
       </div>
     </div>
   </div>
